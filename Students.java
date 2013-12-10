@@ -5,14 +5,20 @@ import java.io.*;
 public class Students {
 	
 	public static void main(String[] args) throws IOException{
+		String[] students;
 		Scanner start = new Scanner(System.in);
+		Scanner other = new Scanner(System.in);
+		Scanner load = new Scanner(System.in);
+		System.out.println("Enter the file: ");
+		String file = other.nextLine();
 		System.out.println("Enter 1 if you want to pick a random student");
 		System.out.println("Enter 2 if you want to make groups");
 		int i = start.nextInt();
-		File file = new File("class.csv");
+		System.out.print("Enter your student file: ");
+		String path = load.nextLine();
+		students = loadFile(path, students);
+		//File file = new File("class.csv");
 		Scanner scan = new Scanner(file);
-		String[] students = scan.nextLine().split(",");
-		String[] called;
 		int person = 0;
 		// System.out.println("" + students[0]);
 		if (i == 1) {
@@ -25,8 +31,11 @@ public class Students {
 			shuffle(students);
 			for (int b=0; b<students.length-1; b++) {
 				for (int a=0; a<x; a++) {
+					if (person == students.length) {
+						System.out.println("Small Group ");
+						System.exit(1);
+					}
 					System.out.print(students[person] + " ");
-					//called[b] = students[person];
 					b++;
 					person++;
 				}
@@ -38,6 +47,7 @@ public class Students {
 					System.out.println("Left over " + students[j-1]);
 				}
 			}
+
 			
 		} else {
 			System.out.println("Not a number");
@@ -52,6 +62,19 @@ public class Students {
 		    int temp = r.nextInt(f);
 		    students[f] = students[temp];
 		    students[temp] = name;
+		}
+	}
+
+	public static String[] loadFile(String path, String[] students) {
+		File file = new File(path);
+		Scanner scan;
+		try {
+			scan = new Scanner(file);
+			students = scan.nextLine().split(",");
+			
+		} catch {
+			System.out.println("Error");
+			System.exit(1);
 		}
 	}
 
