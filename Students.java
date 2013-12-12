@@ -3,7 +3,7 @@ import java.util.Random;
 import java.io.*;
 
 public class Students {
-	
+	public static String[] studentss;
 	public static void main(String[] args) throws IOException{
 		String[] students;
 		Scanner start = new Scanner(System.in);
@@ -11,12 +11,10 @@ public class Students {
 		Scanner load = new Scanner(System.in);
 		System.out.println("Enter the file: ");
 		String file = other.nextLine();
+		students = loadFile(file, studentss);
 		System.out.println("Enter 1 if you want to pick a random student");
 		System.out.println("Enter 2 if you want to make groups");
 		int i = start.nextInt();
-		System.out.print("Enter your student file: ");
-		String path = load.nextLine();
-		students = loadFile(path, students);
 		//File file = new File("class.csv");
 		Scanner scan = new Scanner(file);
 		int person = 0;
@@ -72,10 +70,11 @@ public class Students {
 			scan = new Scanner(file);
 			students = scan.nextLine().split(",");
 			
-		} catch {
-			System.out.println("Error");
+		} catch(IOException e) {
+			System.out.println("Error. Can not find path.");
 			System.exit(1);
 		}
+		return students;
 	}
 
 
